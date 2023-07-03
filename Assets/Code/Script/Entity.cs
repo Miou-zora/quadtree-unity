@@ -12,13 +12,12 @@ public class EntityScript : MonoBehaviour
         speed = Random.Range(5f, 15f);
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        // transform.Translate(direction * Time.deltaTime * speed);
-        transform.position += (Vector3)direction * Time.deltaTime * speed;
-        Vector3 pos = transform.position;
-        pos.x = ((pos.x + 10f) % 20f + 20f) % 20f - 10f;
-        pos.y = ((pos.y + 10f) % 20f + 20f) % 20f - 10f;
-        transform.position = pos;
+        Vector2 position = transform.position;
+        position += direction * Time.deltaTime * speed;
+        position.x = Mathf.Repeat(position.x + 30f, 20f) - 10f;
+        position.y = Mathf.Repeat(position.y + 30f, 20f) - 10f;
+        transform.position = position;
     }
 }
