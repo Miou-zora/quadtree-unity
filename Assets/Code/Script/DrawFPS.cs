@@ -15,6 +15,7 @@ public class DrawFPS : MonoBehaviour
     {
         style.fontSize = 30;
         style.normal.textColor = Color.black;
+        style.fontStyle = FontStyle.Bold;
         updateFPS();
     }
     void OnGUI()
