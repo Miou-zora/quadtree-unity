@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(MouseEvent))]
 public class DisplayNumberOfEntity : MonoBehaviour
 {
     private MouseEvent mouseEvent;
