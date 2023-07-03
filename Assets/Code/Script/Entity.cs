@@ -14,14 +14,11 @@ public class EntityScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(direction * Time.deltaTime * speed);
-        if (transform.position.x > 10 || transform.position.x < -10)
-        {
-            direction.x *= -1;
-        }
-        if (transform.position.y > 10 || transform.position.y < -10)
-        {
-            direction.y *= -1;
-        }
+        // transform.Translate(direction * Time.deltaTime * speed);
+        transform.position += (Vector3)direction * Time.deltaTime * speed;
+        Vector3 pos = transform.position;
+        pos.x = ((pos.x + 10f) % 20f + 20f) % 20f - 10f;
+        pos.y = ((pos.y + 10f) % 20f + 20f) % 20f - 10f;
+        transform.position = pos;
     }
 }
