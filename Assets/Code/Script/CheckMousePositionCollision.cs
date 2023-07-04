@@ -10,11 +10,10 @@ public class GenerateQuadTree : MonoBehaviour
 
     void Start()
     {
-        quadTree = new QuadTree(new Rect(-10, -10, 20, 20), 5);
+        quadTree = new QuadTree(new Bounds(new Vector3(0, 0, 0), new Vector3(20, 20, 0)), 4);
         foreach (GameObject entity in GetComponent<MouseEvent>().GetEntities())
         {
-            Vector2 position = entity.transform.position;
-            quadTree.insert(position);
+            quadTree.insert(entity);
         }
     }
 
@@ -24,8 +23,7 @@ public class GenerateQuadTree : MonoBehaviour
         quadTree.clear();
         foreach (GameObject entity in GetComponent<MouseEvent>().GetEntities())
         {
-            Vector2 position = entity.transform.position;
-            quadTree.insert(position);
+            quadTree.insert(entity);
         }
     }
 
@@ -36,13 +34,12 @@ public class GenerateQuadTree : MonoBehaviour
             return;
         }
         quadTree.draw();
-        // create a rect linked to mouse position with 3 3 size and mouse position as center
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float size = 3;
-        Rect rect = new Rect(mousePosition.x - size / 2, mousePosition.y - size / 2, size, size);
-        foreach (Vector2 point in quadTree.query(rect)) {
+        // use mouse pos
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Bounds bounds = new Bounds(mousePos, new Vector3(5, 5, 0));
+        foreach (GameObject entity in quadTree.query(bounds)) {
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(point, 0.05f);
+            Gizmos.DrawSphere(entity.GetComponent<Collider2D>().bounds.center, 0.05f);
         }
     }
 }
