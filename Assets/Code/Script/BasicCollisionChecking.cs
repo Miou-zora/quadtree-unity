@@ -20,20 +20,18 @@ public class BasicCollisionChecking : MonoBehaviour
         }
         for (int i = 0; i < entities.Count; i++)
         {
-            DoesEntityCollide(entities[i], entities, i);
+            DoesEntityCollide(entities[i], i);
         }
     }
 
-    void DoesEntityCollide(GameObject entity, List<GameObject> list, int index)
+    void DoesEntityCollide(GameObject entity, int index)
     {
-        for (int i = index + 1; i < list.Count; i++)
+        for (int i = 0; i < mouseEvent.GetEntities().Count; i++)
         {
-            var isCollision = entity.GetComponent<Collider2D>().bounds.Intersects(list[i].GetComponent<Collider2D>().bounds);
-            if (isCollision)
-            {
+            if (i == index)
+                continue;
+            if (entity.GetComponent<Collider2D>().bounds.Intersects(mouseEvent.GetEntities()[i].GetComponent<Collider2D>().bounds))
                 entity.GetComponent<SpriteRenderer>().color = Color.red;
-                list[i].GetComponent<SpriteRenderer>().color = Color.red;
-            }
         }
     }
 }

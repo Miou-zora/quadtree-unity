@@ -36,5 +36,13 @@ public class GenerateQuadTree : MonoBehaviour
             return;
         }
         quadTree.draw();
+        // create a rect linked to mouse position with 3 3 size and mouse position as center
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float size = 3;
+        Rect rect = new Rect(mousePosition.x - size / 2, mousePosition.y - size / 2, size, size);
+        foreach (Vector2 point in quadTree.query(rect)) {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(point, 0.05f);
+        }
     }
 }
